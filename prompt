@@ -1,0 +1,1739 @@
+# PROJECT: MyFit Tracker — Personal Gym & Nutrition Android Application
+
+## 1. YOUR ROLE
+
+Act as a senior Flutter developer, mobile application architect, UI/UX designer, database engineer, and QA engineer.
+
+Build a complete, production-quality personal fitness tracking Android application named **MyFit Tracker**.
+
+The application is for personal use. Its primary purpose is to help me manage my gym workouts, record exercises and sets, track my diet, calculate calories and macronutrients, monitor body weight, and measure fitness progress.
+
+I have provided a reference image showing the UI design I want.
+
+**IMPORTANT: Use the attached reference image as the primary visual reference. Reproduce its layout, spacing, colors, cards, navigation, and overall appearance as closely as practical.**
+
+Do not redesign the application into a different style.
+
+Do not create only a prototype or a collection of static screens. Implement working functionality, persistent storage, calculations, navigation, and data validation.
+
+Work directly in the current project workspace. First inspect the existing files and development environment. Preserve useful existing code, and do not overwrite working code without a reason.
+
+If the project is empty, initialize it correctly.
+
+Do not stop after generating a plan or describing the architecture. Implement the application, run the available checks, fix errors, and prepare the Android APK.
+
+---
+
+# 2. PROJECT OBJECTIVES
+
+Build a mobile-first fitness application with these core capabilities:
+
+1. Personal fitness profile.
+2. Weekly workout planner.
+3. Exercise library.
+4. Live workout session tracking.
+5. Exercise-by-exercise set, rep, and weight logging.
+6. Rest timer.
+7. Daily food diary.
+8. Indian vegetarian food database.
+9. Automatic calorie and macronutrient calculations.
+10. Saved meals and reusable recipes.
+11. Water intake tracking.
+12. Daily body-weight tracking.
+13. Body measurements.
+14. Strength progression analytics.
+15. Nutrition and workout history.
+16. Daily and weekly reports.
+17. Local notifications and reminders.
+18. Offline-first data storage.
+19. Data export, import, and backup.
+20. A release-ready Android APK.
+
+Prioritize a reliable, usable application over unnecessary features.
+
+The application must remain useful without a paid API, subscription, AI service, or cloud backend.
+
+---
+
+# 3. REQUIRED TECHNOLOGY STACK
+
+Use the following technology choices unless an existing working project has a compelling reason to retain another compatible setup.
+
+### Mobile application
+- Flutter stable.
+- Dart.
+- Material 3 components customized to match the reference design.
+
+### State management
+Use Riverpod for predictable state management and dependency injection.
+
+### Local database
+Use SQLite through a maintained Flutter-compatible database package.
+
+Prefer Drift if its setup and migrations can be implemented reliably.
+
+The database must persist data across application restarts and device reboots.
+
+### Navigation
+Use a maintained declarative navigation package such as GoRouter, or an equivalent well-structured Flutter navigation implementation.
+
+### Charts
+Use FL Chart or another maintained Flutter chart library.
+
+### Local preferences
+Use a maintained preferences package for lightweight settings only.
+
+Do not use shared preferences as the main database.
+
+### Notifications
+Use a maintained local notification package for reminders, subject to Android permission and scheduling requirements.
+
+### Development tools
+- Flutter SDK.
+- Dart SDK.
+- Android SDK.
+- Gradle.
+- Android Studio or a compatible IDE.
+
+Use compatible, stable dependency versions. Do not blindly select the newest versions if they introduce dependency conflicts.
+
+Do not require Firebase, Supabase, or another paid or hosted backend for the initial release.
+
+---
+
+# 4. APPLICATION DESIGN SYSTEM
+
+The supplied reference image is the source of truth for the visual direction.
+
+The design is a dark, minimalist fitness application with a premium appearance.
+
+Do not introduce a generic AI-generated aesthetic.
+
+Avoid excessive gradients, oversized illustrations, glassmorphism, excessive rounded cards, unnecessary animations, or decorative elements that reduce usability.
+
+## 4.1 Color palette
+
+Use a consistent design system.
+
+Suggested dark theme:
+
+- Main background: #0E1113
+- Secondary background: #151A1D
+- Card background: #1A2024
+- Elevated surface: #20272B
+- Primary accent green: #24E88A
+- Primary text: #F5F7F6
+- Secondary text: #A0AAA7
+- Muted text: #727D79
+- Border: #2A3236
+- Success: #24E88A
+- Warning: #F4C95D
+- Error: #FF6268
+- Protein indicator: #24E88A
+- Carbohydrate indicator: #A5C96D
+- Fat indicator: #F2CF65
+
+Use colors consistently.
+
+Green should be reserved for primary actions, selected navigation items, progress indicators, and important positive states.
+
+Avoid using every color simultaneously.
+
+## 4.2 Typography
+
+Use a clean sans-serif font.
+
+Prefer a native system font or a properly licensed font such as Inter.
+
+Typography hierarchy:
+
+- Main screen title: 24–28 px.
+- Section title: 17–20 px.
+- Card title: 14–16 px.
+- Body text: 13–15 px.
+- Secondary labels: 11–13 px.
+- Numeric metrics: 24–32 px when important.
+
+Use sensible font weights and consistent spacing.
+
+Avoid excessively small text.
+
+## 4.3 Components
+
+Create reusable components for:
+
+- Primary buttons.
+- Secondary buttons.
+- Input fields.
+- Search fields.
+- Cards.
+- Progress rings.
+- Nutrition indicators.
+- Exercise rows.
+- Food rows.
+- Set-entry rows.
+- Empty states.
+- Loading states.
+- Error messages.
+- Confirmation dialogs.
+- Bottom navigation.
+- Date selectors.
+- Numeric metric cards.
+
+Use a consistent border radius of approximately 10–16 px.
+
+Avoid unnecessary shadows.
+
+Use subtle borders and surface contrast instead of decorative effects.
+
+## 4.4 Layout
+
+Design for Android phones first.
+
+Support narrow screens, including approximately 360 px logical width.
+
+Use SafeArea and responsive layouts.
+
+Respect Android status bars, navigation bars, system insets, and the keyboard.
+
+Prevent horizontal overflow.
+
+Long lists must scroll properly.
+
+Forms must remain usable when the keyboard is open.
+
+Support portrait orientation as the primary layout.
+
+## 4.5 Dark and light themes
+
+The reference image uses dark mode.
+
+Dark mode must be the default.
+
+Also implement an optional light theme using the same visual language, with warm white or neutral backgrounds and restrained green accents.
+
+Provide a theme setting.
+
+Persist the selected theme.
+
+---
+
+# 5. APPLICATION NAVIGATION
+
+Implement five primary bottom navigation tabs:
+
+1. Home.
+2. Workout.
+3. Diet.
+4. Progress.
+5. More.
+
+The bottom navigation must remain consistent across the main sections.
+
+Use simple, recognizable icons.
+
+Highlight the selected destination in green.
+
+Keep secondary screens within their appropriate navigation section.
+
+The following screens must be implemented:
+
+1. Home dashboard.
+2. Weekly workout plan.
+3. Workout session.
+4. Exercise library.
+5. Exercise details.
+6. Diet and nutrition dashboard.
+7. Add food.
+8. Add or edit meal.
+9. Food database.
+10. Saved meals.
+11. Progress overview.
+12. Body-weight history.
+13. Strength progression.
+14. Body measurements.
+15. Personal profile and goals.
+16. Workout plan editor.
+17. Reminder settings.
+18. Application settings.
+19. Data backup and restore.
+20. About screen.
+
+Each screen must be reachable through working navigation.
+
+Use appropriate back navigation and Android system-back behavior.
+
+---
+
+# 6. SCREEN 1: HOME DASHBOARD
+
+Create a dashboard matching the first phone in the reference image.
+
+## Header
+
+Display:
+
+- Greeting based on the time of day.
+- User's first name.
+- Small profile avatar or initials.
+- Settings or menu access.
+
+Example:
+
+"Hi Saransh"
+
+Below it, show a short, understated motivational message.
+
+Do not display a random greeting that changes excessively.
+
+## Today's workout card
+
+Show:
+
+- Today's workout name.
+- Target muscle groups.
+- Number of exercises.
+- Planned workout duration.
+- Workout status.
+- Start Workout button.
+
+If today is a rest day, show a rest-day card instead.
+
+If the workout has already been completed, show the completed state and allow the user to view the session.
+
+The Start Workout button must open the actual workout session.
+
+## Nutrition summary card
+
+Show:
+
+- Calories consumed.
+- Daily calorie target.
+- Calories remaining or over target.
+- Protein consumed and target.
+- Carbohydrates consumed and target.
+- Fat consumed and target.
+
+Use a restrained circular progress indicator.
+
+All values must come from saved food logs and profile targets.
+
+Never hardcode example nutrition totals into the actual dashboard.
+
+## Quick actions
+
+Provide:
+
+- Log Food.
+- Log Water.
+- Record Weight.
+
+Each action must open the appropriate entry form.
+
+## Weekly activity
+
+Show seven days of the current week.
+
+Indicate whether a workout was completed, planned, missed, or designated as a rest day.
+
+Use distinguishable visual states.
+
+Do not count a rest day as a missed workout.
+
+## Daily consistency card
+
+Show a short summary of today's progress, such as:
+
+- Workout completed.
+- Protein target reached.
+- Calorie target status.
+- Water target status.
+
+Do not shame the user for missed targets.
+
+---
+
+# 7. SCREEN 2: WORKOUT PLANNER
+
+Implement a weekly workout planner matching the second reference screen.
+
+Show Monday through Sunday.
+
+Each day should display:
+
+- Day name.
+- Workout name.
+- Planned exercise count.
+- Completion status.
+- Navigation arrow.
+
+Provide two views:
+
+1. Week Plan.
+2. Exercise Library.
+
+Allow the user to:
+
+- Create a workout.
+- Edit a workout.
+- Rename a workout.
+- Duplicate a workout.
+- Delete a workout after confirmation.
+- Assign a workout to a weekday.
+- Add or remove exercises.
+- Reorder exercises.
+- Change the number of planned sets.
+- Define rep ranges.
+- Configure rest intervals.
+- Designate a rest day.
+
+Do not force the user into a fixed six-day workout split.
+
+The user must be able to configure three, four, five, or six training days per week.
+
+Include a reasonable editable sample plan for first launch, but clearly identify it as a sample.
+
+Do not assume the sample plan is medically or physically appropriate for every user.
+
+---
+
+# 8. SCREEN 3: LIVE WORKOUT SESSION
+
+This is one of the most important screens.
+
+Follow the third phone in the reference image.
+
+Show:
+
+- Workout name.
+- Session timer.
+- Current exercise.
+- Exercise position, such as Exercise 2 of 6.
+- Exercise illustration or thumbnail.
+- Exercise name.
+- Target muscle group.
+- Previous performance, when available.
+
+## Set-entry table
+
+Each set must contain:
+
+- Set number.
+- Weight.
+- Repetitions.
+- Completion status.
+
+Example:
+
+Set 1: 20 kg × 12 reps.
+
+Set 2: 25 kg × 10 reps.
+
+Set 3: 25 kg × 8 reps.
+
+These are examples only.
+
+The user must be able to edit every value.
+
+Use numeric input with sensible decimal support for weights.
+
+Support bodyweight exercises and exercises where external weight is not applicable.
+
+Allow users to:
+
+- Mark a set complete.
+- Edit weight and reps.
+- Add a set.
+- Remove a set.
+- Undo a mistaken completion where practical.
+- Skip an exercise.
+- Replace an exercise.
+- Move to the next exercise.
+- Finish the workout.
+
+Persist workout progress so that accidentally closing the app does not destroy an unfinished session.
+
+Do not save an incomplete workout as completed automatically.
+
+Ask for confirmation before discarding an unfinished session.
+
+## Rest timer
+
+Implement a working rest timer.
+
+Include:
+
+- Start.
+- Pause.
+- Resume.
+- Skip.
+- Reset.
+- Configurable duration.
+
+Use an actual timer implementation, not a decorative countdown.
+
+Where practical, use local notifications to signal the end of a rest interval if the application is backgrounded.
+
+Handle interruptions and application lifecycle changes correctly.
+
+## Workout completion
+
+When the user finishes:
+
+- Save the session.
+- Calculate completed sets.
+- Calculate completed exercises.
+- Record session duration.
+- Record total lifted volume where applicable.
+- Update workout history.
+- Update exercise progression.
+- Update weekly activity.
+- Return to an appropriate summary screen.
+
+Calculate lifted volume only from completed sets with valid weight and rep values.
+
+Clearly distinguish external-load volume from bodyweight exercises.
+
+Never use estimated training volume as if it were a measured fact.
+
+---
+
+# 9. SCREEN 4: EXERCISE LIBRARY
+
+Implement an exercise library matching the fourth reference screen.
+
+Include:
+
+- Search field.
+- Muscle-group filters.
+- Exercise list.
+- Exercise thumbnail or illustration.
+- Exercise name.
+- Equipment type.
+- Target muscle group.
+- Add-to-workout button.
+
+Provide useful filters, including:
+
+- All.
+- Chest.
+- Back.
+- Shoulders.
+- Arms.
+- Legs.
+- Core.
+
+Additional categories can include cardio and full-body movements.
+
+Include common exercises such as:
+
+- Bench Press.
+- Incline Dumbbell Press.
+- Chest Fly.
+- Push-up.
+- Lat Pulldown.
+- Seated Cable Row.
+- Barbell Row.
+- Squat.
+- Leg Press.
+- Romanian Deadlift.
+- Shoulder Press.
+- Lateral Raise.
+- Biceps Curl.
+- Triceps Pushdown.
+- Plank.
+
+Provide exercise instructions where possible.
+
+Support custom exercises.
+
+Allow the user to select equipment, target muscles, and whether the exercise uses external weight.
+
+Do not depend on an external image API.
+
+Bundle a small, properly licensed set of thumbnails or use clean placeholder illustrations.
+
+Missing images must never break the interface.
+
+---
+
+# 10. SCREEN 5: DIET AND NUTRITION DASHBOARD
+
+Match the fifth reference screen.
+
+Provide date navigation so the user can review previous days and today's food diary.
+
+Show:
+
+- Total calories consumed.
+- Daily calorie target.
+- Remaining or excess calories.
+- Protein consumed and target.
+- Carbohydrates consumed and target.
+- Fat consumed and target.
+
+Display a meal list with categories:
+
+- Breakfast.
+- Lunch.
+- Evening snack.
+- Dinner.
+- Other snacks.
+
+Each meal card should show:
+
+- Meal name.
+- Brief food summary.
+- Total calories.
+- Navigation or edit action.
+- Add-food action.
+
+Provide an Add Meal button.
+
+The user must be able to edit and delete food entries.
+
+Support custom meal categories and flexible meal times.
+
+## Automatic calculations
+
+Calculate the nutrition totals for the selected date from saved food entries.
+
+Use this logic:
+
+Consumed calories = sum of calories for all food items logged that day.
+
+Consumed protein = sum of protein across all logged items.
+
+Consumed carbohydrates = sum of carbohydrates across all logged items.
+
+Consumed fat = sum of fat across all logged items.
+
+Remaining calories = daily calorie target minus consumed calories.
+
+Remaining macronutrients = target minus consumed quantity.
+
+If a target has been exceeded, clearly show the excess rather than displaying a negative value as remaining nutrition.
+
+Retain the actual consumed value in all cases.
+
+Do not confuse remaining calories with the calories in an individual food.
+
+---
+
+# 11. SCREEN 6: ADD FOOD
+
+Match the sixth reference screen.
+
+Provide:
+
+- Search.
+- Recent foods.
+- Saved meals.
+- Food category filters.
+- Food list.
+- Serving information.
+- Calories.
+- Protein.
+- Add button.
+
+Include common Indian vegetarian foods.
+
+### Initial food database
+
+Include reasonable entries for:
+
+- Roti.
+- Cooked rice.
+- Dal.
+- Rajma.
+- Chole.
+- Paneer.
+- Tofu.
+- Soy chunks.
+- Milk.
+- Curd.
+- Oats.
+- Poha.
+- Upma.
+- Idli.
+- Dosa.
+- Khichdi.
+- Banana.
+- Apple.
+- Orange.
+- Almonds.
+- Peanuts.
+- Peanut butter.
+- Cooked vegetables.
+- Salad.
+- Chickpeas.
+- Sprouts.
+
+Include common variations where useful.
+
+Do not assume all entries are nutritionally identical.
+
+For example, paneer, low-fat paneer, and tofu must not share the same nutritional values.
+
+## Food data requirements
+
+Store nutritional information per 100 g or 100 ml where appropriate.
+
+Also support a standard serving size.
+
+Each food item should include:
+
+- Unique ID.
+- Name.
+- Category.
+- Food type.
+- Base quantity.
+- Base unit.
+- Calories.
+- Protein.
+- Carbohydrates.
+- Fat.
+- Optional fiber.
+- Source or data provenance.
+- Whether the entry is user-created.
+
+Distinguish raw, dry, and cooked foods when relevant.
+
+Clearly label estimates.
+
+Use reliable, legally usable nutrition data where available.
+
+Do not fabricate precision or claim that estimated values are laboratory measurements.
+
+## Serving conversion
+
+Support:
+
+- Grams.
+- Kilograms where appropriate.
+- Milliliters.
+- Cups where a defined conversion is available.
+- Pieces.
+- Standard household servings.
+- Bowls and rotis with explicit serving definitions.
+
+Do not treat every bowl, glass, or roti as identical.
+
+Let the user edit serving weights and create custom serving sizes.
+
+When the user enters a quantity, calculate:
+
+Nutrient amount = nutrient value per 100 g × quantity in grams ÷ 100.
+
+For milliliters, use values defined per 100 ml unless a reliable density conversion exists.
+
+For household portions, first convert the portion to its defined base quantity.
+
+Never multiply an entire meal's nutrition by the number of servings twice.
+
+---
+
+# 12. SCREEN 7: ADD OR EDIT MEAL
+
+Allow the user to create a reusable meal or recipe.
+
+Each meal should contain:
+
+- Meal name.
+- Food items.
+- Quantity of each item.
+- Serving controls.
+- Calories.
+- Protein.
+- Carbohydrates.
+- Fat.
+- Save Meal button.
+- Add to Today button.
+
+The screen must calculate the total nutrition dynamically.
+
+Example workflow:
+
+1. Select a meal category.
+2. Search for a food.
+3. Add the food.
+4. Enter its quantity.
+5. Add more food items.
+6. Review the meal's nutritional totals.
+7. Save it for reuse or log it for the selected date.
+
+Allow users to duplicate and edit saved meals.
+
+Editing a saved recipe must not silently change historical food logs.
+
+When a saved meal is added to a diary, store an appropriate snapshot of its ingredients and nutritional values for that logged entry.
+
+---
+
+# 13. SCREEN 8: BODY-WEIGHT AND PROGRESS TRACKING
+
+Implement the Progress section with three main views:
+
+1. Overview.
+2. Weight.
+3. Strength.
+
+## Overview
+
+Display:
+
+- Current weight.
+- Change over a selected period.
+- Body-weight trend chart.
+- Recent workout consistency.
+- Nutrition history.
+- Body measurements.
+
+Allow time filters such as:
+
+- 7 days.
+- 30 days.
+- 90 days.
+- All time.
+
+Calculate weight changes from actual logged measurements.
+
+Clearly distinguish the latest weight from the weekly average.
+
+Do not infer a body-fat percentage from weight alone.
+
+## Weight tracking
+
+Allow the user to:
+
+- Enter weight manually.
+- Select the date.
+- Edit a previous entry.
+- Delete an incorrect entry.
+- View the history.
+
+Use kilograms by default.
+
+Support pounds as an optional unit.
+
+Show a trend chart using real saved records.
+
+Handle missing dates correctly.
+
+Do not invent intermediate measurements to make a chart look complete.
+
+## Strength tracking
+
+Display exercise progression over time.
+
+Allow the user to select an exercise and view:
+
+- Weight lifted.
+- Repetitions.
+- Completed sets.
+- Session dates.
+- Personal records where they can be calculated reliably.
+
+For estimated one-rep maximums, use an explicitly labeled estimate and a documented formula.
+
+Do not confuse estimated one-rep maximums with actual tested lifts.
+
+## Body measurements
+
+Allow optional records for:
+
+- Chest.
+- Waist.
+- Arms.
+- Thighs.
+- Hips.
+- Calves.
+- Other custom measurements.
+
+Each record should have a date and measurement unit.
+
+---
+
+# 14. SCREEN 9: PERSONAL PROFILE AND GOALS
+
+Allow the user to edit:
+
+- Name.
+- Age.
+- Height.
+- Current weight.
+- Target weight.
+- Preferred units.
+- Diet preference.
+- Training experience.
+- Weekly gym availability.
+- Typical workout duration.
+- Fitness goal.
+
+Support these goals:
+
+- Muscle gain.
+- Lean muscle gain.
+- Fat loss.
+- Body recomposition.
+- Strength.
+- General fitness.
+
+## Nutrition target calculation
+
+Calculate initial calorie and macronutrient targets using a documented approach and the user's profile.
+
+Do not hardcode a universal target for all users.
+
+If age, sex, activity level, or other necessary inputs are missing, request the relevant information before presenting an individualized estimate.
+
+For calorie calculations, use a recognized method such as Mifflin–St Jeor where its inputs are available.
+
+Explain that calculated maintenance calories and activity multipliers are estimates.
+
+Allow the user to review and manually adjust their targets.
+
+For muscle gain, use a conservative, configurable approach rather than an aggressive calorie surplus.
+
+Do not automatically change calorie targets every day because body weight fluctuates.
+
+Use multiple weeks of relevant records when suggesting adjustments.
+
+Do not present nutrition calculations as medical advice.
+
+Avoid unsafe weight-gain or weight-loss targets.
+
+---
+
+# 15. WATER TRACKING
+
+Provide a simple water tracker.
+
+The user should be able to:
+
+- Add a glass or custom quantity.
+- Select milliliters.
+- Undo a recent entry.
+- View today's total.
+- Set a personal hydration target.
+
+Persist entries by date.
+
+Do not assume a single hydration target is appropriate for every user.
+
+Allow reminders to be enabled or disabled.
+
+Avoid sending unnecessary or excessive notifications.
+
+---
+
+# 16. SCREEN 10: SETTINGS AND MORE
+
+Implement a clean settings screen matching the reference.
+
+Include:
+
+- Workout Plan.
+- My Meals.
+- Food Database.
+- Progress History.
+- Reminders.
+- Units.
+- Theme.
+- Backup and Restore.
+- About.
+- Reset All Data.
+
+Every item must open a functional screen.
+
+## Units
+
+Support:
+
+- Kilograms and pounds.
+- Centimeters and feet/inches.
+- Milliliters and fluid ounces where appropriate.
+
+Store values consistently in canonical units internally.
+
+Convert for display without accidentally converting the same value multiple times.
+
+## Reminders
+
+Support optional reminders for:
+
+- Workout time.
+- Meal logging.
+- Water intake.
+- Body-weight recording.
+
+Allow the user to configure reminder times and disable individual reminders.
+
+Handle Android notification permissions properly.
+
+## Reset All Data
+
+Show a clear confirmation dialog.
+
+Explain that resetting data is destructive.
+
+Require a second confirmation before deleting the personal database.
+
+Do not reset data from an accidental tap.
+
+---
+
+# 17. DATABASE ARCHITECTURE
+
+Create a properly normalized local database with migrations.
+
+Suggested tables:
+
+### UserProfile
+- id.
+- name.
+- birthDate or age.
+- height.
+- current profile preferences.
+- diet preference.
+- fitness goal.
+- target weight.
+- calorie target.
+- protein target.
+- carbohydrate target.
+- fat target.
+- unit preferences.
+- createdAt.
+- updatedAt.
+
+Do not store unnecessary personal information.
+
+### Exercise
+- id.
+- name.
+- description.
+- primary muscle.
+- secondary muscles.
+- equipment.
+- exercise type.
+- instructions.
+- image asset path.
+- isCustom.
+- createdAt.
+
+### WorkoutPlan
+- id.
+- name.
+- description.
+- isActive.
+- createdAt.
+- updatedAt.
+
+### WorkoutPlanDay
+- id.
+- planId.
+- weekday.
+- name.
+- isRestDay.
+
+### PlannedExercise
+- id.
+- workoutPlanDayId.
+- exerciseId.
+- sortOrder.
+- plannedSets.
+- minimumReps.
+- maximumReps.
+- defaultRestSeconds.
+
+### WorkoutSession
+- id.
+- workoutPlanDayId, nullable.
+- date.
+- startedAt.
+- completedAt, nullable.
+- durationSeconds.
+- status.
+- notes.
+
+### SessionExercise
+- id.
+- sessionId.
+- exerciseId.
+- sortOrder.
+- status.
+- notes.
+
+### SetLog
+- id.
+- sessionExerciseId.
+- setNumber.
+- weightKg, nullable.
+- reps, nullable.
+- durationSeconds, nullable.
+- distanceMeters, nullable.
+- isCompleted.
+- completedAt, nullable.
+
+### FoodItem
+- id.
+- name.
+- category.
+- baseUnit.
+- baseQuantity.
+- calories.
+- protein.
+- carbohydrates.
+- fat.
+- fiber, nullable.
+- preparationState.
+- source.
+- isCustom.
+- createdAt.
+- updatedAt.
+
+### SavedMeal
+- id.
+- name.
+- category.
+- description.
+- createdAt.
+- updatedAt.
+
+### SavedMealItem
+- id.
+- savedMealId.
+- foodItemId.
+- quantity.
+- unit.
+- optional nutrition snapshot.
+
+### FoodLog
+- id.
+- date.
+- mealCategory.
+- loggedAt.
+- sourceType.
+- sourceId, nullable.
+- displayNameSnapshot.
+- quantity.
+- unit.
+- caloriesSnapshot.
+- proteinSnapshot.
+- carbohydratesSnapshot.
+- fatSnapshot.
+- fiberSnapshot, nullable.
+- notes.
+
+### BodyWeightLog
+- id.
+- date.
+- weightKg.
+- notes.
+
+### BodyMeasurement
+- id.
+- date.
+- measurementType.
+- value.
+- unit.
+- notes.
+
+### WaterLog
+- id.
+- dateTime.
+- quantityMl.
+
+### ReminderSettings
+- id.
+- reminderType.
+- enabled.
+- scheduledTime.
+- configuration.
+
+### AppSettings
+- id.
+- theme.
+- weightUnit.
+- heightUnit.
+- waterUnit.
+- onboardingCompleted.
+
+Adapt the schema when necessary.
+
+Add appropriate foreign keys, indexes, uniqueness constraints, validation, and migration support.
+
+Use transactions for operations that modify multiple related records.
+
+Do not duplicate the same workout or meal when navigating between screens.
+
+Historical logs must remain associated with their original dates.
+
+Do not silently recalculate old food logs when the underlying food database changes.
+
+---
+
+# 18. DATA PERSISTENCE AND BACKUP
+
+The application must work offline.
+
+All essential operations must function without an internet connection.
+
+Use the local database as the source of truth.
+
+Implement:
+
+- Database initialization.
+- Schema versioning.
+- Database migrations.
+- Error handling.
+- Data validation.
+- Transaction-safe updates.
+- Database closing and resource cleanup where appropriate.
+
+Implement JSON export and import.
+
+The backup should include:
+
+- Profile.
+- Settings.
+- Workout plans.
+- Exercise history.
+- Set logs.
+- Food logs.
+- Saved meals.
+- Custom foods.
+- Body-weight history.
+- Measurements.
+- Water history.
+- Reminder settings.
+
+Include a backup format version.
+
+Validate imported data before changing the current database.
+
+If import fails, leave the existing database intact.
+
+Provide a clear export and import interface.
+
+Use Android's file picker or an appropriate system document interface.
+
+Do not promise automatic cloud backup unless a cloud service has actually been implemented.
+
+---
+
+# 19. FOOD DATA AND NUTRITION ACCURACY
+
+Nutrition accuracy is essential.
+
+Seed the database with a useful initial selection of Indian vegetarian foods.
+
+Use a structured local JSON or database seed file.
+
+Keep nutritional data separate from presentation code.
+
+Document the source of each food dataset and its licensing.
+
+Where appropriate, use publicly available, legally reusable nutritional references.
+
+Do not scrape restricted databases.
+
+Do not invent precise nutrient values without a source or clearly labeled estimate.
+
+Support user-defined food entries.
+
+Include an option to correct an entry.
+
+Store the nutritional values used at the time of food logging.
+
+Clearly identify estimated household serving sizes.
+
+Do not claim that calorie totals are exact when ingredients or cooking quantities are unknown.
+
+### Nutrition calculation tests
+
+Verify that:
+
+- 50 g of a food with 200 kcal per 100 g calculates to 100 kcal.
+- 150 g of a food with 10 g protein per 100 g calculates to 15 g protein.
+- Combining two foods sums their nutrients correctly.
+- Changing serving quantity updates all totals.
+- Removing a food subtracts its contribution.
+- Editing a meal does not corrupt historical logs.
+- A food with zero calories can still have a valid record if the data source supports it.
+- Missing nutritional values are handled explicitly rather than silently treated as verified zeros.
+
+Use appropriate rounding for display.
+
+Preserve adequate precision internally.
+
+---
+
+# 20. WORKOUT CALCULATION AND DATA VALIDATION
+
+Validate all user inputs.
+
+Reject negative weights and negative repetitions.
+
+Handle zero values intentionally.
+
+Do not assume every exercise uses kilograms and repetitions.
+
+Support timed exercises, bodyweight movements, and optional distance tracking where relevant.
+
+For workout volume:
+
+Volume = sum of completed sets of (valid external weight × repetitions).
+
+Clearly indicate when a volume calculation excludes bodyweight or timed movements.
+
+Track the best recorded performance without incorrectly treating every session as a personal record.
+
+When an exercise is renamed, preserve its identity and history.
+
+If an exercise is deleted, protect historical session records. Prefer archiving exercises rather than deleting referenced records.
+
+---
+
+# 21. APPLICATION ARCHITECTURE AND CODE QUALITY
+
+Organize the application into maintainable feature modules.
+
+Suggested structure:
+
+lib/
+  main.dart
+  app.dart
+
+  core/
+    constants/
+    theme/
+    routing/
+    database/
+    errors/
+    utils/
+    widgets/
+
+  features/
+    onboarding/
+    dashboard/
+    profile/
+    workout/
+      models/
+      repositories/
+      services/
+      providers/
+      screens/
+      widgets/
+
+    exercises/
+    nutrition/
+    food_database/
+    meals/
+    water/
+    progress/
+    measurements/
+    reminders/
+    settings/
+    backup/
+
+  shared/
+    models/
+    widgets/
+
+assets/
+  images/
+  icons/
+  data/
+
+test/
+  unit/
+  widget/
+  integration/
+
+Adapt the structure as needed, but keep responsibilities separated.
+
+Use repositories for database access.
+
+Keep nutrition calculations out of UI widgets.
+
+Keep workout calculations out of UI widgets.
+
+Use typed models.
+
+Avoid enormous single-file implementations.
+
+Avoid unnecessary abstractions and excessive boilerplate.
+
+Use immutable state where practical.
+
+Do not duplicate business logic across screens.
+
+Handle asynchronous operations correctly.
+
+Show loading, success, empty, and error states.
+
+Avoid swallowed exceptions and empty catch blocks.
+
+Do not leave TODOs for essential features.
+
+Do not use mock data as the final data source.
+
+Sample data is allowed for first-launch setup, but actual user interactions must be persisted and reflected in the interface.
+
+---
+
+# 22. ONBOARDING EXPERIENCE
+
+On first launch, show a short onboarding flow.
+
+Collect only the information required to personalize the application:
+
+1. Name.
+2. Age or birth date, if required for calculations.
+3. Height.
+4. Current weight.
+5. Goal.
+6. Weekly training availability.
+7. Diet preference.
+8. Units.
+9. Optional nutrition preferences.
+
+Explain why nutrition information is requested.
+
+Allow the user to skip optional fields.
+
+Do not block the entire app if the user has not completed every optional field.
+
+If essential information for a personalized calorie calculation is missing, display an explanation and request the required values.
+
+Do not silently assign an arbitrary calorie target.
+
+Once onboarding is complete, open the dashboard.
+
+Provide an edit-profile screen later.
+
+---
+
+# 23. DAILY USER WORKFLOW
+
+Optimize the app around these three common tasks.
+
+## Workflow A: Record a workout
+
+1. Open the application.
+2. View today's workout.
+3. Tap Start Workout.
+4. Open the first exercise.
+5. Enter weights and repetitions for each set.
+6. Mark completed sets.
+7. Use the rest timer.
+8. Move to the next exercise.
+9. Finish the session.
+10. Review the completed workout.
+
+Keep the number of taps low.
+
+Remember the last-used values when helpful, but never automatically mark a new set complete.
+
+## Workflow B: Record food
+
+1. Open Diet.
+2. Select a meal.
+3. Search for a food.
+4. Choose a serving.
+5. Enter the quantity.
+6. Add the food.
+7. Review the updated calorie and macro totals.
+
+Allow users to repeat recent foods quickly.
+
+## Workflow C: Review progress
+
+1. Open Progress.
+2. View weight history.
+3. Select an exercise.
+4. Review strength progression.
+5. Compare nutrition totals across days.
+6. Review weekly consistency.
+
+Make these workflows fast, intuitive, and reliable.
+
+---
+
+# 24. PERFORMANCE, PRIVACY, AND RELIABILITY
+
+The app is designed for personal use.
+
+Prioritize privacy and local storage.
+
+Requirements:
+
+- No account required.
+- No mandatory analytics.
+- No advertisements.
+- No unnecessary network requests.
+- No external AI API required.
+- No secret API keys embedded in source code.
+- No collection of unnecessary personal information.
+- No transmission of personal workout or diet logs without explicit implementation and consent.
+
+Use appropriate Android permissions only.
+
+Do not request location, camera, microphone, or contacts access unless an implemented feature genuinely requires it.
+
+Avoid expensive rebuilds of entire screens when one food item or set changes.
+
+Ensure the app remains responsive with thousands of food and workout records.
+
+Use pagination or efficient list builders for long lists.
+
+Handle empty databases gracefully.
+
+Ensure all date and time operations use appropriate local date handling.
+
+Do not assume the device is always online.
+
+---
+
+# 25. TESTING REQUIREMENTS
+
+Write automated tests for important business logic.
+
+## Unit tests
+
+Test:
+
+- Calorie calculation.
+- Protein, carbohydrate, and fat calculations.
+- Serving conversions.
+- Meal totals.
+- Remaining nutrition.
+- Workout volume.
+- Weight conversion.
+- Height conversion.
+- Weekly activity calculations.
+- Weight averages.
+- Backup validation.
+- Invalid inputs.
+
+## Database tests
+
+Verify:
+
+- Creating a workout.
+- Saving a session.
+- Adding and editing sets.
+- Recording food.
+- Editing food logs.
+- Creating saved meals.
+- Persisting data across database reopen.
+- Deleting entries.
+- Exporting data.
+- Importing valid data.
+- Rejecting invalid backups without damaging existing records.
+
+## Widget tests
+
+Test:
+
+- Dashboard rendering.
+- Bottom navigation.
+- Starting a workout.
+- Adding a set.
+- Adding a food item.
+- Updating nutrition totals.
+- Editing profile goals.
+- Theme switching.
+- Empty and error states.
+
+## Integration tests
+
+Where the environment supports them, verify the main workout and food-logging workflows on an Android emulator or device.
+
+Run formatting and static analysis.
+
+Fix all errors and important warnings introduced by the implementation.
+
+Do not claim tests passed unless they were actually executed.
+
+---
+
+# 26. BUILDING THE ANDROID APK
+
+The final output must include a working Android APK.
+
+Inspect the installed Flutter and Android development environments first.
+
+If the environment supports Android builds:
+
+1. Install or resolve dependencies.
+2. Generate platform files if necessary.
+3. Run formatting.
+4. Run static analysis.
+5. Run unit and widget tests.
+6. Build the debug APK.
+7. Verify that the APK exists.
+8. If possible, install and launch it on an emulator.
+9. Fix any build errors.
+
+Build the debug APK with:
+
+flutter build apk --debug
+
+For a release build, use:
+
+flutter build apk --release
+
+Do not claim a release APK is signed for distribution unless the signing configuration has actually been completed.
+
+Do not commit private signing keys or passwords.
+
+Provide the exact APK output location.
+
+If Android tooling is unavailable, complete the source code, explain precisely what is missing, and provide the commands needed to build the APK on a properly configured computer.
+
+Do not fabricate a successful build.
+
+---
+
+# 27. DOCUMENTATION
+
+Create a README.md containing:
+
+- Project overview.
+- Feature list.
+- Technology stack.
+- Project structure.
+- Prerequisites.
+- Installation instructions.
+- How to run the application.
+- How to run tests.
+- How to build the APK.
+- Database architecture.
+- Backup and restore instructions.
+- Known limitations.
+- Future improvements.
+
+Also document the nutritional data sources and limitations.
+
+Include a short manual-testing checklist.
+
+---
+
+# 28. IMPLEMENTATION ORDER
+
+Implement the project in this order.
+
+### Phase 1: Foundation
+- Inspect the environment.
+- Initialize or repair the Flutter project.
+- Configure dependencies.
+- Implement the design system.
+- Set up navigation.
+- Configure SQLite and migrations.
+
+### Phase 2: Core screens
+- Onboarding.
+- Dashboard.
+- Workout planner.
+- Workout session.
+- Exercise library.
+
+### Phase 3: Nutrition
+- Food database.
+- Add-food screen.
+- Meal creation.
+- Daily food diary.
+- Calorie and macro calculations.
+
+### Phase 4: Tracking
+- Body weight.
+- Strength history.
+- Body measurements.
+- Water tracking.
+- Progress charts.
+
+### Phase 5: Personalization
+- Profile.
+- Goals.
+- Settings.
+- Reminders.
+- Theme selection.
+
+### Phase 6: Reliability
+- Backup and restore.
+- Validation.
+- Error handling.
+- Unit tests.
+- Widget tests.
+- Database tests.
+
+### Phase 7: Delivery
+- Final UI review against the reference image.
+- Static analysis.
+- Test execution.
+- APK build.
+- README.
+- Build verification.
+
+Do not stop after Phase 1 or after creating the visual screens.
+
+Complete as many phases as the environment allows, prioritizing a fully working core application.
+
+If a dependency is unavailable, choose a compatible alternative and document the decision.
+
+---
+
+# 29. ACCEPTANCE CRITERIA
+
+The application is ready when all of the following are satisfied:
+
+1. It launches successfully on Android.
+2. Its visual design closely follows the supplied reference.
+3. The five main navigation tabs work.
+4. Onboarding saves the personal profile.
+5. The dashboard displays real stored data.
+6. Workout plans can be created and edited.
+7. Workout sessions support multiple exercises and sets.
+8. Weight and repetitions can be edited per set.
+9. Rest timer controls work.
+10. Completed workouts persist across restarts.
+11. The food database supports search.
+12. Food quantities can be changed.
+13. Nutrition totals recalculate correctly.
+14. Saved meals can be reused.
+15. Daily food logs persist.
+16. Weight history and charts use real records.
+17. Strength progression uses real workout logs.
+18. Theme and unit settings persist.
+19. Backup and restore are implemented and tested.
+20. Core workflows work offline.
+21. There are no major navigation or data-loss bugs.
+22. Essential automated tests pass.
+23. A valid APK is generated, or any environmental blocker is clearly documented.
+24. Setup and build instructions are complete.
+
+---
+
+# 30. FINAL INSTRUCTIONS
+
+Start by inspecting the current workspace and identifying the installed Flutter, Dart, Java, Gradle, and Android SDK versions.
+
+Then briefly report the existing project state and proceed with implementation.
+
+Use the attached image as the UI reference throughout development.
+
+Do not ask me to approve every small decision. Make reasonable engineering choices, document them, and continue.
+
+If a requirement is ambiguous, prefer a simple, reliable implementation that supports future expansion.
+
+Do not replace working features with placeholders.
+
+Do not hardcode the dashboard's example metrics.
+
+Do not implement fake buttons that do nothing.
+
+Do not stop at a Figma-like mockup.
+
+**The final deliverable must be a functional personal fitness Android application, with complete source code, persistent workout and nutrition data, reliable calculations, tests, documentation, and an APK whenever the build environment permits.**
