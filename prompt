@@ -1737,3 +1737,78 @@ Do not implement fake buttons that do nothing.
 Do not stop at a Figma-like mockup.
 
 **The final deliverable must be a functional personal fitness Android application, with complete source code, persistent workout and nutrition data, reliable calculations, tests, documentation, and an APK whenever the build environment permits.**
+
+---
+
+# 31. HANDOFF CONTEXT — READ THIS FIRST
+
+This project is being transferred to another developer or coding agent. Continue from the existing implementation in the current workspace. Do not restart the project and do not convert it back into HTML, JavaScript, or a web-only prototype.
+
+## Current project state
+
+- Project path: `S:\Fitness tracking`
+- Application name: `MyFit Tracker`
+- Required platform: Android mobile application
+- Required framework: Flutter/Dart
+- Flutter version available during setup: 3.47.2
+- Dart version available during setup: 3.13.2
+- Android SDK available: Android SDK 36
+- Java is available through Android Studio's bundled JDK.
+- The GitHub repository is `https://github.com/Saranshjais/MyFit-Tracker.git`.
+- The project has been initialized as a Flutter project and pushed to the `main` branch.
+
+## Existing Flutter implementation
+
+The real application entry point is `lib/main.dart`. It currently contains:
+
+- Flutter Material dark theme using the reference's black, charcoal, and neon-green visual language.
+- Five-tab bottom navigation: Home, Workout, Diet, Progress, and More.
+- Home dashboard with today's workout card, calories, workout count, quick actions, and weekly activity.
+- Workout screen with search, muscle-group filters, exercise list, custom exercise creation, and today's completed exercise selection.
+- Workout session screen with exercise title, set-entry fields, and rest-timer display.
+- Initial Diet, Progress, and Settings screens as mobile UI foundations.
+- Riverpod dependency and a local SQLite database through `sqflite`.
+- Seed exercise data including chest, back, legs, shoulders, arms, and core exercises.
+- Persistent exercise records and today's completed-exercise selections in SQLite.
+
+## Important current limitations
+
+This is not yet a finished production application. The following work remains mandatory:
+
+- Replace placeholder values with real persisted data.
+- Implement the complete weekly workout planner and editable workout plans.
+- Make the workout session fully functional: editable sets, completion state, add/remove sets, skip/replace exercise, actual timer, session persistence, and completion summary.
+- Implement the complete food database, Indian vegetarian seed data, serving conversion, food logs, meal editor, saved meals, and nutrition calculations.
+- Implement profile, goals, calorie/macro target calculation, water tracking, body weight, measurements, progress history, and strength analytics.
+- Implement reminders, theme settings, units, backup/restore, reset-data confirmation, and About screen.
+- Add proper repository/data layers and migrations as the database grows.
+- Add unit, database, widget, and integration tests required by this prompt.
+- Update README with real setup, architecture, data sources, and APK instructions.
+- Run `flutter analyze`, `flutter test`, and `flutter build apk --debug`; do not claim success unless the commands actually pass.
+- The APK has not been verified as a final deliverable yet.
+
+## Commands for the next developer
+
+From `S:\Fitness tracking`:
+
+```powershell
+flutter pub get
+dart format lib test
+flutter analyze
+flutter test
+flutter build apk --debug
+```
+
+Expected debug APK location:
+
+`build\app\outputs\flutter-apk\app-debug.apk`
+
+## Handoff rules
+
+1. Treat this prompt and the supplied UI collage as the source of truth.
+2. Work on the Flutter project in `lib/`, `test/`, `android/`, and supporting project files.
+3. Preserve the existing SQLite data model when extending it; use migrations for schema changes.
+4. Do not delete the existing implementation merely to create another visual mockup.
+5. Keep the app offline-first. No domain, Play Store listing, cloud backend, Firebase, or paid API is required for core operation.
+6. Store user data locally and preserve historical logs with snapshots where the prompt requires it.
+7. Build the APK and verify it before reporting completion.
