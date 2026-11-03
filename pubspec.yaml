@@ -44,6 +44,7 @@ dependencies:
   flutter_timezone: ^5.1.1
   file_picker: ^13.3.2
   intl: ^0.20.3
+  speech_to_text: ^7.5.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

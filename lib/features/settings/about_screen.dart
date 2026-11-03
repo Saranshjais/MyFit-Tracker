@@ -54,6 +54,9 @@ class AboutScreen extends ConsumerWidget {
           const SizedBox(height: 20),
           block('Privacy', const [
             'Everything you enter is stored only on this phone. There is no account, no advertising, no analytics and no internet connection required.',
+            'The microphone is used only while you tap Speak on the "Speak or type a meal" screen. '
+                "Your phone's speech service turns it into text (it may use Google's servers unless offline speech is installed). "
+                'Typing works fully on the phone.',
             'Uninstalling the app deletes its data. Use Backup & Restore to keep a copy.',
           ]),
           block('Nutrition data', [

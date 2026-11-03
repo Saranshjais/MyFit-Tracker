@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:myfit_tracker/app.dart';
-import 'package:myfit_tracker/core/database/app_database.dart';
-import 'package:myfit_tracker/core/providers/core_providers.dart';
 import 'package:myfit_tracker/core/utils/dates.dart';
 import 'package:myfit_tracker/features/nutrition/food_log_repository.dart';
 import 'package:myfit_tracker/features/nutrition/food_repository.dart';
@@ -13,57 +9,7 @@ import 'package:myfit_tracker/features/progress/body_repository.dart';
 import 'package:myfit_tracker/features/settings/app_settings.dart';
 import 'package:myfit_tracker/features/workout/session_repository.dart';
 
-import '../helpers/test_db.dart';
-
-/// Monday 2 November 2026.
-final today = DateTime(2026, 11, 2);
-
-Future<AppDatabase> pumpApp(
-  WidgetTester tester, {
-  bool onboarded = true,
-  UserProfile? profile,
-  Future<void> Function(AppDatabase db)? seed,
-}) async {
-  tester.view.physicalSize = const Size(1080, 2340);
-  tester.view.devicePixelRatio = 3; // 360 × 780 logical pixels
-  addTearDown(tester.view.reset);
-
-  late AppDatabase db;
-  late AppSettings settings;
-  late UserProfile loadedProfile;
-  await tester.runAsync(() async {
-    // A separate file per test: repeated opens of ':memory:' share one instance.
-    db = await openTestDatabase(path: tempDatabasePath('widget'));
-    if (onboarded) {
-      await SettingsRepository(db).save(const AppSettings(onboardingCompleted: true));
-      await ProfileRepository(db).save(profile ?? const UserProfile(name: 'Saransh Jais'));
-    }
-    if (seed != null) await seed(db);
-    settings = await SettingsRepository(db).load();
-    loadedProfile = await ProfileRepository(db).load();
-  });
-
-  await tester.pumpWidget(
-    ProviderScope(
-      overrides: [
-        databaseProvider.overrideWithValue(db),
-        initialSettingsProvider.overrideWithValue(settings),
-        initialProfileProvider.overrideWithValue(loadedProfile),
-        todayProvider.overrideWith(() => FixedTodayNotifier(today)),
-      ],
-      child: const MyFitApp(),
-    ),
-  );
-  await tester.pumpAndSettle();
-  return db;
-}
-
-/// Pumps a few frames without waiting for periodic timers to stop.
-Future<void> settleFrames(WidgetTester tester, {int frames = 8}) async {
-  for (var i = 0; i < frames; i++) {
-    await tester.pump(const Duration(milliseconds: 100));
-  }
-}
+import '../helpers/app_harness.dart';
 
 void main() {
   testWidgets('onboarding saves the profile and opens the dashboard', (tester) async {
@@ -208,6 +154,12 @@ void main() {
     await tester.tap(find.text('Diet'));
     await tester.pumpAndSettle();
 
+    await tester.scrollUntilVisible(
+      find.byTooltip('Add food to Breakfast'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('Add food to Breakfast'));
     await tester.pumpAndSettle();
     expect(find.text('Add Food'), findsOneWidget);
@@ -222,10 +174,15 @@ void main() {
 
     await tester.pageBack();
     await tester.pumpAndSettle();
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, 2000));
+    await tester.pumpAndSettle();
     expect(find.text('Diet / Nutrition'), findsOneWidget);
     expect(find.text('90'), findsOneWidget); // 89 kcal/100 g × 101 g
-    expect(find.text('Banana'), findsWidgets);
     expect(find.text('2,110 kcal remaining'), findsOneWidget);
+    // The Breakfast card sits below the totals and the speak-a-meal card.
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, -500));
+    await tester.pumpAndSettle();
+    expect(find.text('Banana'), findsWidgets);
   });
 
   testWidgets('theme can be switched and is saved', (tester) async {

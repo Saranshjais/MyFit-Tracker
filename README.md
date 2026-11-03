@@ -27,6 +27,7 @@ The visual design follows `Neon Fitness App UI Collage.png` (dark, charcoal surf
 - Every diary entry stores a snapshot of its values, so correcting a food or editing a saved meal never changes past days.
 - Custom foods and corrections to any food, with a source field and an “estimate” flag.
 - Water tracking: quick glass, custom amount, undo, optional daily target.
+- **Speak or type a meal:** say or type *"2 roti, 1 bowl dal and a glass of milk"* (Hindi works too: *"do roti aur ek katori dahi"*) and the app lists each food with its amount and calories for you to check, fix and add in one tap. Matching runs on the phone against your food list (`lib/features/nutrition/quick_log/meal_text_parser.dart`). It understands English and Hindi numbers, household amounts (bowl/katori, glass, spoon, grams…) and common Hindi food names. Unknown foods are listed as not found, never guessed, and loose matches are marked “Check this”.
 
 **Progress**
 - Body weight: one entry per day, edit/delete, trend chart (7/30/90 days/all), change over the period, 7-day average shown separately from the latest value. Missing days are never filled in.
@@ -108,7 +109,7 @@ flutter run            # with a phone or emulator connected
 ```bash
 dart format lib test   # line width 120 is set in analysis_options.yaml
 flutter analyze
-flutter test           # 100 tests: unit, database and widget
+flutter test           # 120 tests: unit, database and widget
 ```
 
 The database tests run real SQLite through `sqflite_common_ffi`, so no device is needed.
@@ -183,6 +184,8 @@ More › Backup & Restore.
 
 The app does **not** back up to any cloud, and Android auto-backup is disabled for privacy. Uninstalling deletes the data, so export regularly.
 
+**Permissions.** Notifications, vibration, reminder alarms (including after a restart) and the microphone. There is no internet permission. The microphone is used only while you tap **Speak**; Android's speech service (usually Google's) turns speech into text and may send the audio to its servers unless an offline speech pack is installed. Typing a meal stays entirely on the phone.
+
 ## Nutrition data: sources and limits
 
 Each food records its source (shown when you add it, and in the food database):
@@ -210,6 +213,7 @@ None of this is medical advice.
 - Session duration is the time from start to finish; if you leave a session open, fix it from the summary menu.
 - Android only. There is no iOS project, and the UI text is English only.
 - No cloud sync; backups are manual files.
+- Speaking a meal depends on the phone's speech service and matches only foods in your list plus the built-in Hindi/English names. Always review the list before adding.
 
 ## Future improvements
 

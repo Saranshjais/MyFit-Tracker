@@ -103,6 +103,15 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.pickOnly ? 'Choose food' : 'Add Food'),
+        actions: [
+          if (!widget.pickOnly)
+            IconButton(
+              tooltip: 'Speak or type a meal',
+              icon: const Icon(Icons.mic),
+              onPressed: () =>
+                  context.push(Uri(path: '/diet/quick', queryParameters: {'date': _date, 'meal': ?_meal}).toString()),
+            ),
+        ],
         bottom: widget.pickOnly || widget.date == null
             ? null
             : PreferredSize(

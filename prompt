@@ -1742,7 +1742,7 @@ Do not stop at a Figma-like mockup.
 
 # 31. HANDOFF CONTEXT — READ THIS FIRST
 
-> **Status update (2026-11-03):** The work listed under "Important current limitations" below has been implemented: full feature set, schema v3 with migrations from v1 and v2, 100 automated tests, debug and release APKs. The "Current project state" notes below describe the earlier prototype. See README.md for the current architecture, build steps and known limitations.
+> **Status update (2026-11-03):** The work listed under "Important current limitations" below has been implemented: full feature set, schema v3 with migrations from v1 and v2, 120 automated tests, debug and release APKs. The "Current project state" notes below describe the earlier prototype. See README.md for the current architecture, build steps and known limitations.
 
 This project is being transferred to another developer or coding agent. Continue from the existing implementation in the current workspace. Do not restart the project and do not convert it back into HTML, JavaScript, or a web-only prototype.
 

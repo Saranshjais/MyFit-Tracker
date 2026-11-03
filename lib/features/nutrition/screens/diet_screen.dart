@@ -177,6 +177,27 @@ class _DietScreenState extends ConsumerState<DietScreen> {
                 ],
               ),
             ),
+            const SizedBox(height: 12),
+            AppCard(
+              onTap: () => context.go(Uri(path: '/diet/quick', queryParameters: {'date': key}).toString()),
+              child: Row(
+                children: [
+                  const IconTile(icon: Icons.mic, size: 44),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Speak or type a meal', style: t.titleSmall),
+                        const SizedBox(height: 2),
+                        Text('"2 roti, 1 bowl dal and a glass of milk"', style: t.bodySmall),
+                      ],
+                    ),
+                  ),
+                  Icon(Icons.chevron_right, color: p.textMuted),
+                ],
+              ),
+            ),
             const SectionTitle('Meals'),
             if (logsAsync.hasError) ErrorView(error: logsAsync.error!),
             for (final c in allCategories) ...[

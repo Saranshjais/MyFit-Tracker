@@ -7,6 +7,7 @@ import '../../features/dashboard/home_screen.dart';
 import '../../features/exercises/exercise_detail_screen.dart';
 import '../../features/exercises/exercise_form_screen.dart';
 import '../../features/exercises/exercise_picker_screen.dart';
+import '../../features/nutrition/quick_log/quick_log_screen.dart';
 import '../../features/nutrition/screens/add_food_screen.dart';
 import '../../features/nutrition/screens/diet_screen.dart';
 import '../../features/nutrition/screens/food_database_screen.dart';
@@ -105,6 +106,11 @@ final routerProvider = Provider<GoRouter>((ref) {
                 path: '/diet',
                 builder: (_, _) => const DietScreen(),
                 routes: [
+                  GoRoute(
+                    path: 'quick',
+                    builder: (_, s) =>
+                        QuickLogScreen(date: s.uri.queryParameters['date'], category: s.uri.queryParameters['meal']),
+                  ),
                   GoRoute(
                     path: 'add',
                     builder: (_, s) =>

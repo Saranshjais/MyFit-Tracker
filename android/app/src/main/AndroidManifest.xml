@@ -8,6 +8,9 @@
     <!-- Optional: lets the rest-timer alert fire on time. Without it the app
          falls back to inexact scheduling. -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <!-- Only used when you tap the mic to speak a meal. The phone's speech
+         service turns it into text; this app still has no internet access. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:label="MyFit Tracker"
@@ -59,6 +62,10 @@
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
+        </intent>
+        <!-- Lets the app find the phone's speech recognition service. -->
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
         </intent>
     </queries>
 </manifest>
